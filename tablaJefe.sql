@@ -1,0 +1,11 @@
+CREATE TABLE JEFE(
+	Id INTEGER,
+	DNI VARCHAR(9),
+	Nombre VARCHAR(50),
+	Salario NUMBER,
+	Telefono VARCHAR(10),
+	IdDep INTEGER,
+	CONSTRAINT jef_id_pk PRIMARY KEY (Id),
+	CONSTRAINT jef_dni_uq UNIQUE (DNI),
+	CONSTRAINT jef_iddep_fk FOREIGN KEY (IdDep) REFERENCES Departamento(Id)
+);
