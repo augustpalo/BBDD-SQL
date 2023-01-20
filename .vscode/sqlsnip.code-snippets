@@ -1,0 +1,22 @@
+{
+	"Crear tabla": {
+		"prefix": "table",
+		"body": [
+			"CREATE TABLE (",
+			"",
+			");"
+		]
+	},
+	"Primary key Constraint": {
+		"prefix": "conpk",
+		"body": [
+			"CONSTRAINT nn_nn_pk PRIMARY KEY (att)"
+		]
+	},
+	"Foreign key Constraint": {
+		"prefix": "confk",
+		"body": [
+			"CONSTRAINT nn_nn_fk FOREIGN KEY (att) REFERENCES TABLA(att)"
+		]
+	}
+}
