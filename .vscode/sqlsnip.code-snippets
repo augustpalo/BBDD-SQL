@@ -18,5 +18,17 @@
 		"body": [
 			"CONSTRAINT nn_nn_fk FOREIGN KEY (att) REFERENCES TABLA(att)"
 		]
+	},
+	"Crear tabla persona": {
+		"prefix": "tablepersona",
+		"body": [
+			"CREATE TABLE (",
+			"    DNI             CHAR(9),",
+			"    Nombre          VARCHAR2(50),",
+			"    Direccion       VARCHAR2(20),",
+			"    Telefono        VARCHAR2(15),",
+			"    CONSTRAINT _dni_pk PRIMARY KEY (DNI)",
+			")",
+		]
 	}
 }
