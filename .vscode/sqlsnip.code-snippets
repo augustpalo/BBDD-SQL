@@ -19,6 +19,18 @@
 			"CONSTRAINT nn_nn_fk FOREIGN KEY (att) REFERENCES TABLA(att)"
 		]
 	},
+	"Unique Constraint": {
+		"prefix": "conuq",
+		"body": [
+			"CONSTRAINT nn_nn_uq UNIQUE (att)"
+		]
+	},
+	"Not NULL Constraint": {
+		"prefix": "connn",
+		"body": [
+			"CONSTRAINT nn_nn_nn NOT NULL (att)"
+		]
+	},
 	"Crear tabla persona": {
 		"prefix": "tablepersona",
 		"body": [
@@ -29,6 +41,12 @@
 			"    Telefono        VARCHAR2(15),",
 			"    CONSTRAINT _dni_pk PRIMARY KEY (DNI)",
 			")",
+		]
+	},
+	"default Constraint": {
+		"prefix": "conde",
+		"body": [
+			"CONSTRAINT nn_nn_de att DEFAULT (val)"
 		]
 	}
 }

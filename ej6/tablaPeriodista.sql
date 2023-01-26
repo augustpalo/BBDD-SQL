@@ -1,6 +1,6 @@
 CREATE TABLE Periodista(
     DNI             CHAR(9),
-    Nombre          VARCHAR2(50),
+    Nombre          VARCHAR2(50) NOT NULL,
     Direccion       VARCHAR2(20),
     Telefono        VARCHAR2(15),
     Especialista    VARCHAR2(20),
