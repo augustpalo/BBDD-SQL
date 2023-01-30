@@ -48,5 +48,11 @@
 		"body": [
 			"CONSTRAINT nn_nn_de att DEFAULT (val)"
 		]
+	},
+	"check Constraint":{
+		"prefix": "conck",
+		"body": [
+			"CONSTRAINT nn_nnn_ck CHECK (att IN('2opcion','1opcion'))"
+		]
 	}
 }
