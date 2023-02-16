@@ -6,7 +6,7 @@ CREATE TABLE CENTROS(
 
 CREATE TABLE EMPLEADOS(
     numem       INTEGER PRIMARY KEY,
-    extel       VARCHAR2(9),
+    extel       Integer,
     fecna       DATE,
     fecin       DATE,
     salar       NUMBER,
