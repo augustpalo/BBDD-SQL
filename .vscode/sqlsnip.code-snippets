@@ -54,5 +54,9 @@
 		"body": [
 			"CONSTRAINT nn_nnn_ck CHECK (att IN('2opcion','1opcion'))"
 		]
+	},
+	"order ascending":{
+		"prefix":"ordasc",
+		"body": "ORDER BY 1"
 	}
 }
