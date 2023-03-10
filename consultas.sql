@@ -1,70 +1,63 @@
--- 1.   Obtener una relación por orden alfabético de los departamentos cuyo presupuesto es inferior a 30.000 C El
---      nombre de los departamentos vendrá precedido de las palabras “DEPARTAMENTO DE “. Nota: El presupuesto
---      de los departamentos viene expresado en miles de C.
+-- practica 5----------------------------------------------------------------
+-- 1. Obtener por orden alfabético los nombres de los empleados cuyo salario está entre 1500 C y 1600 C.-
 
--- SELECT 'Departamento de ' || NOMDE "Nombre"
--- from DEPARTAMENTOS
--- WHERE presu < 30
--- order by "Nombre";
-
--- 2.   Muestra el número y el nombre de cada departamento separados por un guión y en un mismo campo llamado
---      “Número-Nombre”, además del tipo de director mostrado como “Tipo de Director”, para aquellos departamentos
---      con presupuesto inferior a 30.000 C.
-
--- SELECT NUMDE || ' - ' || NOMDE as "Numero-Nombre", 
--- TIDIR as "Tipo Director"
--- from DEPARTAMENTOS
--- WHERE presu < 30
--- order by 1;
-
--- 3.  Suponiendo que en los próximos dos años el coste de vida va a aumentar un 8 % anual y que se suben los salarios
--- solo un 2 % anual, hallar para los empleados con más de 4 hijos su nombre y su sueldo anual, actual y para cada
--- uno de los próximos dos años, clasificados por orden alfabético. Muestra la consulta tal y como aparece en la
--- captura.
-
--- SELECT NOMEM "Nombre", salar*12 "Salario 2014", salar*12*1.12 "Salario 2015", salar*12*1.02*1.02
+-- SELECT NOMEM
 -- FROM EMPLEADOS
--- WHERE NUMHIL > 4
+-- WHERE SALAR BETWEEN 1500 AND 1600
 -- ORDER BY 1;
 
--- 4. Hallar, por orden alfabético, los nombres de los empleados tales que si se les da una gratificación de 120 C por
--- hijo, el total de esta gratificación supera el 20 % de su salario.
+-- 2. Obtener por orden alfabético los nombres y salarios de los empleados con comisión, cuyo salario dividido por
+-- su número de hijos cumpla una, o ambas, de las dos condiciones siguientes:
+    -- · Que sea inferior de 720 C
+    -- · Que sea superior a 50 veces su comisión.
 
--- select nomem "Emplead@"
--- FROM EMPLEADOS
--- WHERE 120*NUMHIL > SALAR*0.2
--- ORDER BY 1;
+/* SELECT NOMEM, SALAR
+FROM EMPLEADOS
+WHERE (SALAR / NUMHIL < 720 AND NUMHIL != 0) OR (SALAR / NUMHIL > 50*COMIS AND (NUMHIL != 0))
+AND COMIS IS NOT NULL
+ORDER BY 1;
+ */
 
--- 5. . Para los empleados del departamento 112 hallar el nombre y el salario total (salario más comisión), por orden
--- de salario total decreciente, y por orden alfabético dentro de salario total.
+--  practica 10 -------------------------------------------------------------------------------------
+/* 1. Obtener por orden alfabético, los nombres y fechas de nacimiento de los empleados que cumplen años en el mes
+de noviembre */
+/* 
+select nomem, TO_CHAR(fecna, 'DD/MM/YYYY') Nacimiento 
+from EMPLEADOS
+where TO_CHAR(fecna, 'MM') = '11'
+ORDER BY 1; 
+ */
+-- 2. Obtener los nombres de los empleados que cumplen años en el día de hoy.
 
---     SELECT NOMEM "NOMBRE EMPLEADO", SALAR+COMIS "SALARIO TOTAL"
---     FROM EMPLEADOS
---     WHERE NUMDE=112
---     ORDER BY 2 DESC, 1 ASC;
+/* select nomem, TO_CHAR(fecna, 'DD/MM/YYYY') Nacimiento 
+from EMPLEADOS
+where TO_CHAR(fecna, 'DD/MM') = to_char(SYSDATE, 'DD/MM')
+ORDER BY 1; */ 
 
--- 6. Vemos que para Micaela no se muestra nada en Salario Total, esto es debido a que su comisión es Nula (Lo
--- que no significa que sea 0–> significa que no se ha introducido ningún valor). Esto impide hacer el cálculo de
--- la suma. Muestra entonces la misma consulta anterior pero sólo para aquellos empleados cuya comisión no sea
--- nula.
+/* 3. Obtener los nombres y fecha exacta de nacimiento de los empleados cuya fecha de nacimiento es anterior al año
+1950.
+ */
 
-    -- SELECT NOMEM "NOMBRE EMPLEADO", SALAR+COMIS "SALARIO TOTAL"
-    -- FROM EMPLEADOS
-    -- WHERE NUMDE=112 AND COMIS IS NOT NULL
-    -- ORDER BY 2 DESC, 1 ASC;
+/*  select nomem fecna
+ from empleados
+ where to_char (fecna, 'YYYY') < 1950
+ ORDER BY 1;  */
 
--- 7. Repite la consulta anterior para mostrarla como sigue:
+--  6. Obtener los empleados cuyo nacimiento fue en Lunes
 
-    -- SELECT NOMEM "NOMBRE EMPLEADO", SALAR+COMIS || ' €' "SALARIO TOTAL"
-    -- FROM EMPLEADOS
-    -- WHERE NUMDE=112 AND COMIS IS NOT NULL
-    -- ORDER BY 2 DESC, 1 ASC;
+/* select nomem, fecna
+from empleados
+where to_char(fecna, 'D') = 1; */
 
--- 8.En una campaña de ayuda familiar se ha decidido dar a los empleados una paga extra de 60 C por hijo, a partir
--- del cuarto inclusive. Obtener por orden alfabético para estos empleados: nombre y salario total que van a cobrar
--- incluyendo esta paga extra. Mostrarlo como en la imagen.
+-- 7. Obtener los empleados cuyo día de la semana para el nacimiento y la incorporación fue Viernes
+/* 
+select nomem, to_char(fecna, 'Day') "Nacimiento"
+from EMPLEADOS 
+WHERE to_char(fecna, 'D') = 5 and to_char(fecin, 'D') = 5; */
 
-    SELECT NOMEM "NOMBRE", SALAR+60(NUMHIL-3) "SALARIO TOTAL"
-    FROM EMPLEADOS
-    WHERE NUMHIL >= 4 AND "SALARIO TOTAL" 
-    ORDER BY 1;
+-- 8. Obtener los empleados cuyo día de la semana para el nacimiento y la incorporación coinciden. Es decir nacieron
+-- y se incorporaron un Lunes, o nacieron y se incorporaron un Martes, etc
+
+select nomem, to_char(fecna, 'Day') "Nac coincide con inc"
+from EMPLEADOS 
+WHERE to_char(fecna, 'D') = to_char(fecin, 'D');
