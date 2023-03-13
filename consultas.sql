@@ -57,7 +57,29 @@ WHERE to_char(fecna, 'D') = 5 and to_char(fecin, 'D') = 5; */
 
 -- 8. Obtener los empleados cuyo día de la semana para el nacimiento y la incorporación coinciden. Es decir nacieron
 -- y se incorporaron un Lunes, o nacieron y se incorporaron un Martes, etc
-
+/* 
 select nomem, to_char(fecna, 'Day') "Nac coincide con inc"
 from EMPLEADOS 
-WHERE to_char(fecna, 'D') = to_char(fecin, 'D');
+WHERE to_char(fecna, 'D') = to_char(fecin, 'D'); */
+
+-- practica 12--------------------------------------------------------
+
+-- 1. Hallar cuántos empleados hay en cada departamento
+
+/* select numde, count(numem)
+from EMPLEADOS
+group by numde; */
+
+-- 2. Hallar para cada departamento el salario medio, el mínimo y el máximo.
+
+/* select numde, round(avg(salar),2), min(salar), max(salar)
+from empleados
+group by numde; */
+
+-- 3. Hallar el salario medio y la edad media en años para cada grupo de empleados 
+--    con igual comisión. .. note:
+--La edad dependerá de la fecha en la que realicemos la consulta
+
+select comis, round(avg(salar),2), round(avg((SYSDATE-fecna)/365),1)
+from empleados
+group by comis;
