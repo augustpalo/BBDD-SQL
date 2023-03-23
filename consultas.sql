@@ -119,64 +119,41 @@ inferior a 30.000 C. También queremos conocer el nombre del departamento del qu
 /* select D1.nomde as "Dept.", D2.nomde as "Dept. del que depende", D2.presu as "Presu."
 from departamentos D1 JOIN departamentos D2 ON D1.depde = D2.numde
 WHERE D1.depde in (select numde from departamentos where presu < 30)
-order by 1;
- */
+order by 1; */
+
 /* 3. Obtener los nombres y los salarios medios de los departamentos cuyo salario medio supera al salario medio de
 la empresa.
  */
 
-/*  select nomde, avg(salar) as "Salario medio"
+ /* select nomde, avg(salar) as "Salario medio"
  from departamentos D join empleados E on E.numde = D.numde
  group by nomde
- having avg(E.salar) > (SELECT avg(salar) from empleados);
- */
+ having avg(E.salar) > (SELECT avg(salar) from empleados); */
 
-/*5. Para los departamentos cuyo presupuesto anual supera los 35.000 C, hallar cuantos empleados hay por cada
-extensión telefónica.*/
+/* 4. Para los departamentos cuyo director lo sea en funciones, hallar el número de empleados y la suma de sus
+salarios, comisiones y número de hijos. */
 
-/* select nomde, extel, count(numem)
-from departamentos D join empleados E on D.numde = E.numde
-where presu>35
-group by extel, nomde; */
+--8. Añadir un nuevo departamento de nombre NUEVO y con director en funciones.
+/* insert into departamentos 
+values (300,10,180,'F',10,110,'Nuevo'); */
 
-/* 6. Hallar por orden alfabético los nombres de los empleados y su número de hijos para aquellos que son directores
-en funciones. */
+--9. Añadir un nuevo empleado de nombre NORBERTO y sin departamento asignado. Inventar el resto de datos.
+/* insert into empleados(numem,nomem)
+values(600,'Norberto'); */ 
 
-/* select nomem, NUMHIL
-from EMPLEADOS E join departamentos D on E.numde = D.numde
-where numem in (select direc from departamentos where tidir = 'F')
-order by nomem; */
+-- 15 Muestra los departamentos que no tienen empleados y los empleados que no tiene departamento haciendo uso
+-- la combinación externa FULL JOIN.
 
-/* 7. Hallar si hay algún departamento (suponemos que sería de reciente creación) que aún no tenga empleados
-asignados ni director en propiedad.
- */
+/* select nomde, nomem
+from departamentos D FULL JOIN EMPLEADOS E ON D.NUMDE = E.NUMDE
+WHERE D.NUMDE IS NULL OR E.NUMEM IS NULL; */
 
-/* select nomde
-from departamentos D join empleados E on D.numde = E.numde
-group by nomde
-having count(e.numem) = 0;
- */
---mas correcto:
-/* select nomde
-from departamentos
-where numde NOT IN (select numde FROM EMPLEADOS); */
+--18. Muestra los empleados y sus respectivos departamentos haciendo uso de la combinación interna NATURAL JOIN
+/* select nomde, nomem
+from departamentos natural join empleados; */
 
--- muestra los departamentos con el numero de empleado --
+--19 Muestra la combinación de las 3 tablas CENTROS, DEPARTAMENTOS y EMPLEADOS haciendo uso de NATURAL JOIN.
+select * 
+from centros natural join departamentos natural join empleados;
 
-/* select nomde, D.numde, count(numem)
-from departamentos D join empleados E on D.numde = E.numde
-group by nomde, D.numde
-order by count(numem);
- */
--- 10. Muestra los departamentos que no tienen empleados.
 
-select nomde
-from departamentos
-where numde not in (select numde from empleados);
-
-/*11. Muestra los nombres de departamentos que no tienen empleados haciendo uso la combinación externa LEFT
-JOIN. Muestra una segunda columna con los nombres de empleados para asegurarnos que realmente esta a
-NULL. */
-
-select nomde, nomem
-from departamentos D LEFT JOIN 
