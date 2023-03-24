@@ -153,7 +153,7 @@ WHERE D.NUMDE IS NULL OR E.NUMEM IS NULL; */
 from departamentos natural join empleados; */
 
 --19 Muestra la combinación de las 3 tablas CENTROS, DEPARTAMENTOS y EMPLEADOS haciendo uso de NATURAL JOIN.
-select * 
+/* select * 
 from centros natural join departamentos natural join empleados;
-
+ */
 
