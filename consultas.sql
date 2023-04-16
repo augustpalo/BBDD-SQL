@@ -79,7 +79,7 @@ group by numde; */
 -- 3. Hallar el salario medio y la edad media en años para cada grupo de empleados 
 --    con igual comisión. .. note:
 --La edad dependerá de la fecha en la que realicemos la consulta
-
-select comis, round(avg(salar),2), round(avg((SYSDATE-fecna)/365),1)
+-- @block
+select comis, round(avg(salar),2), round(avg((CURRENT_DATE-fecna)/365),1)
 from empleados
 group by comis;
