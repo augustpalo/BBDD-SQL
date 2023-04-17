@@ -18,4 +18,4 @@ UPDATE SOCIO SET AVALADOR = '12345678A' WHERE DNI != '12345678A';
 -- Elimina los socios cuyo número de teléfono empiece por una cifra inferior a 5. ¿Qué sucede?¿Por
 -- qué?
 
-DELETE 
+DELETE SOCIO WHERE REGEXP_LIKE(TELEFONO, '[0-4]*');
