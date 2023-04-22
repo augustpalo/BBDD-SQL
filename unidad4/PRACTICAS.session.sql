@@ -6,6 +6,9 @@ CREATE TABLE CENTROS(
 );
 
 -- @block
+SELECT * from CENTROS;
+
+-- @block
 CREATE TABLE EMPLEADOS(
     numem       INTEGER PRIMARY KEY,
     extel       Integer,
@@ -17,7 +20,7 @@ CREATE TABLE EMPLEADOS(
     nomem       varchar(20),
     numde       INTEGER
 );
-
+-- @block
 CREATE TABLE DEPARTAMENTOS(
     numde       INTEGER PRIMARY KEY,
     numce       INTEGER,
@@ -89,3 +92,73 @@ insert INTO departamentos(numde, numce, direc, tidir, presu, depde, nomde)
         SELECT 130, 10, 310, "P", 12, 100, "FINANZAS" FROM DUAL
     )
     SELECT * FROM P;
+
+-- @block
+ /*8. En una campaña de ayuda familiar se ha decidido dar a los empleados una paga extra de 60 C por hijo, a partir
+del cuarto inclusive. Obtener por orden alfabético para estos empleados: nombre y salario total que van a cobrar
+incluyendo esta paga extra. Mostrarlo como en la imagen */
+
+SELECT NOMEM, SALAR+60*(NUMHIL-3) AS "salarioTotal"
+FROM EMPLEADOS
+WHERE NUMHIL > 3
+ORDER BY NOMEM;
+
+-- @block
+/* 9. Introducción a SELECT subordinado. Imaginemos la misma consulta anterior, pero en la que se nos pide mostrar
+los mismos campos pero para aquellos empleados cuyo número de hijos iguale o supere a los de Juliana. Es decir,
+Juliana tiene 4 hijos pero no lo sabemos. Lo que sabemos es el nombre. En este caso haremos otro SELECT
+cuyo resultado de la búsqueda sea el número de hijos de Juliana. */
+
+SELECT NOMEM, SALAR+60*(NUMHIJ-3) AS "salarioTotal"
+FROM EMPLEADOS
+WHERE NUMHIJ <= 
+                (SELECT NUMHIJ FROM EMPLEADOS WHERE NOMEM = 'JULIANA')
+ORDER BY NOMEM;
+
+-- @block
+/* 10. Obtener por orden alfabético los nombres de los empleados cuyos sueldos igualan o superan al de CLAUDIA
+en más del 15 %. */
+
+SELECT NOMEM
+FROM EMPLEADOS
+WHERE SALAR >=
+                (SELECT SALAR*1.15 FROM EMPLEADOS WHERE NOMEM = 'CLAUDIA' )
+ORDER BY NOMEM;
+
+--Practica 5--------------------------------------------------------------------------------------------------------------
+
+-- @block
+/* 1. Obtener por orden alfa el nombre y el salario de aquellos empleados que comienzan por la letra “A” y muestra
+la consulta como aparece en la captura */
+
+select NOMEM "Nombre", Concat(SALAR,' €') AS "salario"
+FROM EMPLEADOS
+WHERE NOMEM LIKE 'A%'
+ORDER BY NOMEM;
+
+--Practica 14-----------------------------------------------------------------------------------------------------------------
+-- @block
+
+/* 3. Obtener los nombres y los salarios medios de los departamentos cuyo salario medio supera al salario medio de
+la empresa. */
+
+select NOMDE, AVG(SALAR)
+FROM DEPARTAMENTOS D JOIN EMPLEADOS E ON D.numde = E.numde
+GROUP    BY NOMDE
+HAVING AVG(SALAR) > (
+                        SELECT AVG(SALAR) FROM EMPLEADOS
+);
+
+-- @block
+
+alter table CENTROS add(
+    prueba integer,
+    CONSTRAINT pr_cen_ck CHECK (prueba > 0)
+)
+
+-- @block
+select * 
+from centros;
+
+-- @block
+insert into CENTROS(numce,nomce,dirce) values(30, 'prueba', 'prueba');

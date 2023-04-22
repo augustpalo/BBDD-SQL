@@ -11,7 +11,7 @@ CREATE TABLE EMPLEADOS(
     fecin       DATE,
     salar       NUMBER,
     comis       NUMBER,
-    numhil      INTEGER,
+    numhij      INTEGER,
     nomem       VARCHAR2(20),
     numde       INTEGER
 );

@@ -52,7 +52,7 @@
     -- FROM EMPLEADOS
     -- WHERE NUMDE=112 AND COMIS IS NOT NULL
     -- ORDER BY 2 DESC, 1 ASC;
-
+-- @block
 -- 7. Repite la consulta anterior para mostrarla como sigue:
 
     -- SELECT NOMEM "NOMBRE EMPLEADO", SALAR+COMIS || ' €' "SALARIO TOTAL"
@@ -60,11 +60,12 @@
     -- WHERE NUMDE=112 AND COMIS IS NOT NULL
     -- ORDER BY 2 DESC, 1 ASC;
 
+-- @block
 -- 8.En una campaña de ayuda familiar se ha decidido dar a los empleados una paga extra de 60 C por hijo, a partir
 -- del cuarto inclusive. Obtener por orden alfabético para estos empleados: nombre y salario total que van a cobrar
 -- incluyendo esta paga extra. Mostrarlo como en la imagen.
 
     SELECT NOMEM "NOMBRE", SALAR+60(NUMHIL-3) "SALARIO TOTAL"
     FROM EMPLEADOS
-    WHERE NUMHIL >= 4 AND "SALARIO TOTAL" 
+    WHERE NUMHIL >= 4
     ORDER BY 1;
