@@ -1,0 +1,375 @@
+DROP TABLE MATRICULACIONES;
+DROP TABLE ALUMNOS;
+
+CREATE TABLE alumnos(
+id_alumno INTEGER PRIMARY KEY,
+nombre VARCHAR(100) NOT NULL,
+fecha_nacimiento DATE NOT NULL,
+email VARCHAR(100) UNIQUE
+);
+
+CREATE TABLE profesores(
+id_profesor INTEGER PRIMARY KEY,
+nombre VARCHAR(100) NOT NULL,
+email VARCHAR(100) UNIQUE
+);
+
+CREATE TABLE asignaturas(
+id_asignatura INTEGER PRIMARY KEY,
+nombre VARCHAR(100) NOT NULL UNIQUE,
+creditos INTEGER
+);
+
+CREATE TABLE matriculaciones(
+  id_alumno INTEGER NOT NULL,
+  id_asignatura INTEGER NOT NULL,
+  PRIMARY KEY (id_alumno, id_asignatura)
+);
+
+CREATE TABLE imparticiones(
+  id_asignatura INTEGER NOT NULL,
+  id_profesor INTEGER NOT NULL,
+  PRIMARY KEY (id_profesor, id_asignatura)
+);
+
+ALTER TABLE alumnos ADD(
+	CONSTRAINT ck_alu_fenac CHECK ((SYSDATE-fecha_nacimiento)/365) >= 12,
+	CONSTRAINT ck_alu_email CHECK (REGEXP_LIKE(email,'*@iesciudadjardin.com')));
+
+ALTER TABLE asignaturas ADD(
+	CONSTRAINT ck_asig_cre CHECK (creditos BETWEEN 1 AND 12));
+
+ALTER TABLE MATRICULACIONES MODIFY(
+	id_alumno integer not null delete on cascade,
+	id_asignatura integer not null delete on cascade);
+
+ALTER TABLE imparticiones MODIFY(
+	id_asignatura integer not null delete on cascade,
+	id_profesor integer not null delete on cascade);
+
+alter table imparticiones add(
+	constraint fk_imp_asig foreign key (id_asignatura) references asignatura(id_asignatura),
+	constarint fk_imp_prof foreign key (id_profesor) references profeseores(id_profesor));	
+
+ALTER TABLE matriculaciones ADD(
+	constraint fk_mat_alum foreign key (id_alumno) references alumnos(id_alumno),
+	constraint fk_mat_asig foreign key (id_asignatura) references asignaturas(id_asignatura));
+
+
+
+SAVEPOINT puntoinicial;
+
+-- Insertar registros en la tabla alumnos
+
+INSERT INTO alumnos VALUES (1, 'Juan Pérez', TO_DATE('2006-05-10', 'YYYY-MM-DD'), 'juan.perez@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (2, 'María González', TO_DATE('2006-06-14', 'YYYY-MM-DD'), 'maria.gonzalez@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (3, 'Ana Rodríguez', TO_DATE('2005-08-03', 'YYYY-MM-DD'), 'ana.rodriguez@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (4, 'Luis Martínez', TO_DATE('2006-11-21', 'YYYY-MM-DD'), 'luis.martinez@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (5, 'Rosa Hernández', TO_DATE('2005-02-12', 'YYYY-MM-DD'), 'rosa.hernandez@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (6, 'Pedro Torres', TO_DATE('2006-07-07', 'YYYY-MM-DD'), 'pedro.torres@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (7, 'Marta Navarro', TO_DATE('2006-03-29', 'YYYY-MM-DD'), 'marta.navarro@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (8, 'Sergio Rivas', TO_DATE('2005-09-04', 'YYYY-MM-DD'), 'sergio.rivas@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (9, 'Carmen Ortega', TO_DATE('2006-10-26', 'YYYY-MM-DD'), 'carmen.ortega@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (10, 'Ricardo Delgado', TO_DATE('2005-01-16', 'YYYY-MM-DD'), 'ricardo.delgado@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (11, 'Isabel Ponce', TO_DATE('2006-04-30', 'YYYY-MM-DD'), 'isabel.ponce@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (12, 'Francisco Rubio', TO_DATE('2005-12-22', 'YYYY-MM-DD'), 'francisco.rubio@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (13, 'Natalia Méndez', TO_DATE('2006-09-13', 'YYYY-MM-DD'), 'natalia.mendez@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (14, 'Esteban Vargas', TO_DATE('2005-06-08', 'YYYY-MM-DD'), 'esteban.vargas@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (15, 'Sonia Serrano', TO_DATE('2006-02-28', 'YYYY-MM-DD'), 'sonia.serrano@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (16, 'Pablo Díaz', TO_DATE('2005-10-19', 'YYYY-MM-DD'), 'pablo.diaz@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (17, 'Patricia Aguilar', TO_DATE('2006-05-16', 'YYYY-MM-DD'), 'patricia.aguilar@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (18, 'Diego Romero', TO_DATE('2006-08-01', 'YYYY-MM-DD'), 'diego.romero@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (19, 'Susana Molina', TO_DATE('2005-07-14', 'YYYY-MM-DD'), 'susana.molina@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (20, 'Javier Guzmán', TO_DATE('2006-12-11', 'YYYY-MM-DD'), 'javier.guzman@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (21, 'Raquel Parra', TO_DATE('2005-03-27', 'YYYY-MM-DD'), 'raquel.parra@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (22, 'Alejandro Gallego', TO_DATE('2006-06-30', 'YYYY-MM-DD'), 'alejandro.gallego@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (23, 'Teresa Barroso', TO_DATE('2005-11-09', 'YYYY-MM-DD'), 'teresa.barroso@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (24, 'José Cordero', TO_DATE('2006-05-03', 'YYYY-MM-DD'), 'jose.cordero@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (25, 'Silvia Marín', TO_DATE('2005-01-20', 'YYYY-MM-DD'), 'silvia.marin@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (26, 'Miguel León', TO_DATE('2006-04-17', 'YYYY-MM-DD'), 'miguel.leon@iesciudadjardin.com');
+
+INSERT INTO alumnos VALUES (27, 'Andrea Calvo', TO_DATE('2005-09-28', 'YYYY-MM-DD'), 'andrea.calvo@iesciudadjardin.com');
+
+
+
+-- Insertar registros en la tabla profesores
+
+INSERT INTO profesores VALUES (1, 'Laura García', 'laura.garcia@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (2, 'Manuel Fernández', 'manuel.fernandez@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (3, 'Elena López', 'elena.lopez@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (4, 'Carlos Torres', 'carlos.torres@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (5, 'Beatriz Sánchez', 'beatriz.sanchez@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (6, 'Ignacio Díaz', 'ignacio.diaz@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (7, 'Sofía Martín', 'sofia.martin@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (8, 'Víctor Pérez', 'victor.perez@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (9, 'Alicia Ruiz', 'alicia.ruiz@iesciudadjardin.com');
+
+INSERT INTO profesores VALUES (10, 'Alberto Castro', 'alberto.castro@iesciudadjardin.com');
+
+SAVEPOINT Paso1;
+
+-- Insertar registros en la tabla asignaturas
+
+INSERT INTO asignaturas VALUES (1, 'Matemáticas I',4);
+
+INSERT INTO asignaturas VALUES (2, 'Matemáticas II',5);
+
+INSERT INTO asignaturas VALUES (3, 'Física I',2);
+
+INSERT INTO asignaturas VALUES (4, 'Física II',3);
+
+INSERT INTO asignaturas VALUES (5, 'Química I',6);
+
+INSERT INTO asignaturas VALUES (6, 'Química II',4);
+
+INSERT INTO asignaturas VALUES (7, 'Biología I',4);
+
+INSERT INTO asignaturas VALUES (8, 'Biología II',2);
+
+INSERT INTO asignaturas VALUES (9, 'Geografía I',4);
+
+INSERT INTO asignaturas VALUES (10, 'Geografía II',3);
+
+INSERT INTO asignaturas VALUES (11, 'Historia I',5);
+
+INSERT INTO asignaturas VALUES (12, 'Historia II',3);
+
+INSERT INTO asignaturas VALUES (13, 'Lengua I',7);
+
+INSERT INTO asignaturas VALUES (14, 'Lengua II',3);
+
+INSERT INTO asignaturas VALUES (15, 'Inglés I',5);
+
+INSERT INTO asignaturas VALUES (16, 'Inglés II',2);
+
+INSERT INTO asignaturas VALUES (17, 'Filosofía I',1);
+
+INSERT INTO asignaturas VALUES (18, 'Filosofía II',5);
+
+INSERT INTO asignaturas VALUES (19, 'Educación Física I',4);
+
+INSERT INTO asignaturas VALUES (20, 'Educación Física II',2);
+
+INSERT INTO asignaturas VALUES (21, 'Música I',3);
+
+INSERT INTO asignaturas VALUES (22, 'Música II',6);
+
+INSERT INTO asignaturas VALUES (23, 'Artes Plásticas I',6);
+
+INSERT INTO asignaturas VALUES (24, 'Artes Plásticas II',2);
+
+INSERT INTO asignaturas VALUES (25, 'Informática I',4);
+
+
+
+-- Insertar registros en la tabla imparticiones
+
+INSERT INTO imparticiones VALUES (1, 1);
+
+INSERT INTO imparticiones VALUES (2, 1);
+
+INSERT INTO imparticiones VALUES (3, 2);
+
+INSERT INTO imparticiones VALUES (4, 2);
+
+INSERT INTO imparticiones VALUES (5, 3);
+
+INSERT INTO imparticiones VALUES (6, 3);
+
+INSERT INTO imparticiones VALUES (7, 4);
+
+INSERT INTO imparticiones VALUES (8, 4);
+
+INSERT INTO imparticiones VALUES (9, 5);
+
+INSERT INTO imparticiones VALUES (10, 5);
+
+INSERT INTO imparticiones VALUES (11, 6);
+
+INSERT INTO imparticiones VALUES (12, 6);
+
+INSERT INTO imparticiones VALUES (13, 7);
+
+INSERT INTO imparticiones VALUES (14, 7);
+
+INSERT INTO imparticiones VALUES (15, 8);
+
+INSERT INTO imparticiones VALUES (16, 8);
+
+INSERT INTO imparticiones VALUES (17, 9);
+
+INSERT INTO imparticiones VALUES (18, 9);
+
+INSERT INTO imparticiones VALUES (19, 10);
+
+INSERT INTO imparticiones VALUES (20, 10);
+
+
+
+-- Insertar registros en la tabla matriculaciones
+
+INSERT INTO matriculaciones VALUES (1, 1);
+
+INSERT INTO matriculaciones VALUES (2, 1);
+
+INSERT INTO matriculaciones VALUES (3, 2);
+
+INSERT INTO matriculaciones VALUES (4, 2);
+
+INSERT INTO matriculaciones VALUES (5, 3);
+
+INSERT INTO matriculaciones VALUES (6, 3);
+
+INSERT INTO matriculaciones VALUES (7, 4);
+
+INSERT INTO matriculaciones VALUES (8, 4);
+
+INSERT INTO matriculaciones VALUES (9, 5);
+
+INSERT INTO matriculaciones VALUES (10, 5);
+
+INSERT INTO matriculaciones VALUES (11, 6);
+
+INSERT INTO matriculaciones VALUES (12, 6);
+
+INSERT INTO matriculaciones VALUES (13, 7);
+
+INSERT INTO matriculaciones VALUES (14, 7);
+
+INSERT INTO matriculaciones VALUES (15, 8);
+
+INSERT INTO matriculaciones VALUES (16, 8);
+
+INSERT INTO matriculaciones VALUES (17, 9);
+
+INSERT INTO matriculaciones VALUES (18, 9);
+
+INSERT INTO matriculaciones VALUES (19, 10);
+
+INSERT INTO matriculaciones VALUES (20, 10);
+
+INSERT INTO matriculaciones VALUES (1, 11);
+
+INSERT INTO matriculaciones VALUES (2, 11);
+
+INSERT INTO matriculaciones VALUES (3, 12);
+
+INSERT INTO matriculaciones VALUES (4, 12);
+
+INSERT INTO matriculaciones VALUES (5, 13);
+
+INSERT INTO matriculaciones VALUES (6, 13);
+
+INSERT INTO matriculaciones VALUES (7, 14);
+
+INSERT INTO matriculaciones VALUES (8, 14);
+
+INSERT INTO matriculaciones VALUES (9, 15);
+
+INSERT INTO matriculaciones VALUES (0, 15);
+
+INSERT INTO matriculaciones VALUES (11, 16);
+
+INSERT INTO matriculaciones VALUES (12, 16);
+
+INSERT INTO matriculaciones VALUES (13, 17);
+
+INSERT INTO matriculaciones VALUES (14, 17);
+
+INSERT INTO matriculaciones VALUES (15, 18);
+
+INSERT INTO matriculaciones VALUES (16, 18);
+
+INSERT INTO matriculaciones VALUES (17, 19);
+
+INSERT INTO matriculaciones VALUES (18, 19);
+
+INSERT INTO matriculaciones VALUES (19, 20);
+
+INSERT INTO matriculaciones VALUES (20, 20);
+
+INSERT INTO matriculaciones VALUES (21, 21);
+
+INSERT INTO matriculaciones VALUES (22, 21);
+
+INSERT INTO matriculaciones VALUES (23, 22);
+
+INSERT INTO matriculaciones VALUES (24, 22);
+
+SAVEPOINT Punto2;
+
+-- Cambios en la tabla alumnos
+
+UPDATE alumnos SET nombre = 'Alberto' WHERE id_alumno = 1;
+
+UPDATE alumnos SET apellido = 'Pérez' WHERE id_alumno = 2;
+
+UPDATE alumnos SET fecha_nacimiento = TO_DATE('2003-07-10', 'YYYY-MM-DD') WHERE id_alumno = 3;
+
+
+
+-- Cambios en la tabla profesores
+
+UPDATE profesores SET nombre = 'María' WHERE id_profesor = 1;
+
+UPDATE profesores SET apellido = 'García' WHERE id_profesor = 2;
+
+
+
+-- Cambios en la tabla asignaturas
+
+UPDATE asignaturas SET nombre = 'Geografía' WHERE id_asignatura = 1;
+
+UPDATE asignaturas SET creditos = 4 WHERE id_asignatura = 2;
+
+ROLLBACK TO Punto2;
+
+COMMIT;
+
+DELETE asignaturas where nombre = 'Historia I';
+
+SELECT al.nombre, asi.nombre
+FROM ALUMNOS al JOIN matriculaciones M on al.id_alumno = M.id_alumno
+		JOIN ASIGNATURAS asi on asi.id_asignatura = M.id_asignatura;
+
+SELECT asi.nombre, count(alu.id_alumno)
+FROM ALUMNOS alu full JOIN matriculaciones M on alu.id_alumno = M.id_alumno
+		full JOIN ASIGNATURAS asi on asi.id_asignatura = M.id_asignatura
+group by asi.nombre;
+
+select alu.nombre, asi.*
+FROM ALUMNOS alu full JOIN matriculaciones M on alu.id_alumno = M.id_alumno
+		full JOIN ASIGNATURAS asi on asi.id_asignatura = M.id_asignatura;

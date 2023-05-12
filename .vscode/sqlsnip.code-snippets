@@ -62,5 +62,10 @@
 	"create code block":{
 		"prefix":"block",
 		"body": "-- @block"
+	},
+	"print plsql":{
+		"prefix": "print",
+		"body": "dbms_output.put_line('')"
 	}
+	
 }
