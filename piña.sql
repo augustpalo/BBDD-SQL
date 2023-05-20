@@ -84,26 +84,27 @@ BEGIN
 END Edad_Empleado;
 / */
 
-CREATE OR REPLACE procedure encuentra_dept(nombre_emp empleado.nomem%type)  AS
-  declare
-    cursor c (nombre_empleado varchar) is
-      select numde from empleados where nomem = nombre_empleado;
-  
+CREATE OR REPLACE procedure encuentra_dept(nombre_emp EMPLEADOS.nomem%type)  
+AS
+  cursor c (nombre_empleado empleados.nomem%type) is
+    select numde 
+    from empleados where NOMEM = nombre_empleado;
+  nombredept DEPARTAMENTOS.NOMDE%type;
   begin
     for registro in c(nombre_emp) LOOP
-      SELECT nomde from departamentos where registro.numde = NUMDE;
-      dbms_output.put_line(nomde || ' ' || nombre_emp);
+      SELECT nomde into nombredept from departamentos where registro.numde = NUMDE;
+      dbms_output.put_line(nombredept);
     END LOOP;
   END;
   /
-
-create or replace procedure encuentra_dept(nombre_emp ) as
+  exec encuentra_dept('CESAR');
+/* create or replace procedure encuentra_dept(nombre_emp ) as
   DECLARE
     var1 VARCHAR;
   BEGIN
     SELECT NUMDE into var1 from DEPARTAMENTOS where departamentos.NUMDE = 
                                                     (select numde from empleados where nombre_emp = nomem) ; 
     SELECT nomem from empleados where numde = var1;
-
+ */
 
 
