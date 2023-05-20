@@ -47,7 +47,7 @@ END;
 /* Escribe un procedimiento con un parámetro para el nombre de empleado, que nos muestre la edad
 de dicho empleado en años, meses y días */
 
-Gestión de Bases de Datos, Versión 1.0
+--Gestión de Bases de Datos, Versión 1.0
 -- 4. Escribe un procedimiento con un parámetro para el nombre de empleado,
 -- que nos muestre la edad de dicho empleado en años, meses y días.
 

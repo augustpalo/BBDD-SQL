@@ -66,3 +66,23 @@ INSERT INTO EMPLEADOS (numem, extel, fecna, fecin, salar, comis, numhij, nomem, 
     ) 
     SELECT * FROM p;
             
+INSERT INTO centros (NUMCE, NOMCE, DIRCE)
+    WITH p as (
+        SELECT 10, 'Sede Central', 'C/ Atocha , 820 Madrid' FROM dual UNION ALL
+        SELECT 20, 'Relacion con clientes', 'C/ Atocha, 405 Madrid' FROM dual
+    )
+    SELECT * FROM p;
+
+-- @block
+insert INTO departamentos(numde, numce, direc, tidir, presu, depde, nomde)
+    with p as(
+        select 100, 10, 260, 'P', 72, NULL, 'Direccion General' from dual union ALL
+        select 110, 20, 80, 'P', 90, 100, 'Direccion Comercial' from dual union ALL
+        select 111, 10, 180, 'F', 66, 100, 'Sector Industrial' from dual union ALL
+        select 112, 20, 270, 'P', 54, 110, 'Sector Servicios' from dual union ALL
+        select 120, 10, 150, 'F', 18, 100, 'Organizacion' from dual union all
+        select 121, 10, 150, 'P', 12, 120, 'Personal' from dual union all
+        SELECT 122, 10, 350, 'P', 36, 120, 'PROCESO DE DATOS' FROM DUAL UNION ALL
+        SELECT 130, 10, 310, 'P', 12, 100, 'FINANZAS' FROM DUAL
+    )
+    SELECT * FROM P;
