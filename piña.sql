@@ -17,20 +17,21 @@ end;
 medio del departamento de FINANZAS. Debe hacerse uso de cursores implícitos, es decir utilizar
 SELECT . . . INTO */
 
-/* create or replace 
-PROCEDURE muestra_salar as
-  DECLARE
-   depresu NUMBER;
-   denumce number;
+create or replace
+PROCEDURE muestra_sal as
+  presupuesto DEPARTAMENTOS.PRESU%TYPE;
+  numero_centro DEPARTAMENTOS.NUMCE%TYPE;
 BEGIN
-  select PRESU, NUMCE into depresu, denumce
-  FROM DEPARTAMENTOS WHERE NUMDE = 100;
-  dbms_output.put_line(depresu);
-  dbms_output.put_line(denumce);
-END muestra_salar;
-/ */
+  SELECT PRESU, NUMCE INTO presupuesto, numero_centro
+  FROM DEPARTAMENTOS WHERE NUMDE = 120;
+  dbms_output.put_line(presupuesto);
+  dbms_output.put_line(numero_centro);
+  end;
+  /
 
-/* exec muestra_salar;
+
+
+/* 
 CREATE OR REPLACE
 PROCEDURE Finanzas AS
   numero NUMBER;
@@ -56,9 +57,9 @@ BEGIN
   DBMS_OUTPUT.PUT_LINE('No se han encontrado datos');
 END Finanzas;
 /
-exec Finanzas; */
+exec Finanzas;
 
-
+ */
 
 /* CREATE OR REPLACE
 PROCEDURE Edad_Empleado (nombre EMPLEADOS.NOMEM%TYPE) AS
@@ -84,20 +85,20 @@ BEGIN
 END Edad_Empleado;
 / */
 
-CREATE OR REPLACE procedure encuentra_dept(nombre_emp EMPLEADOS.nomem%type)  
+/* CREATE OR REPLACE procedure encuentra_dept(nombre_emp EMPLEADOS.nomem%type)  
 AS
   cursor c (nombre_empleado empleados.nomem%type) is
     select numde 
     from empleados where NOMEM = nombre_empleado;
   nombredept DEPARTAMENTOS.NOMDE%type;
   begin
-    for registro in c(nombre_emp) LOOP
+    for registro in c(upper(nombre_emp)) LOOP
       SELECT nomde into nombredept from departamentos where registro.numde = NUMDE;
       dbms_output.put_line(nombredept);
     END LOOP;
   END;
   /
-  exec encuentra_dept('CESAR');
+  exec encuentra_dept('CESAR'); */
 /* create or replace procedure encuentra_dept(nombre_emp ) as
   DECLARE
     var1 VARCHAR;
