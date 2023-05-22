@@ -28,7 +28,7 @@ crearse un cursor explícito al que se le pasarán estos parámetros y que mostr
 los empleados que pertenezcan al departamento y con el número de hijos indicados. Al final se
 indicará el número de empleados obtenidos. */
 
-/* CREATE OR REPLACE PROCEDURE
+CREATE OR REPLACE PROCEDURE
 EMPLEADOS_DEPT_HIJ(DEPT INTEGER, HIJ INTEGER) AS
  CONT INTEGER;
  CURSOR cursor (DEPT INTEGER, HIJ INTEGER) IS
@@ -42,16 +42,16 @@ EMPLEADOS_DEPT_HIJ(DEPT INTEGER, HIJ INTEGER) AS
   END LOOP
   dbms_output.put_line('Empleados obtenidos: ' || CONT);
 END;
-/ */
+/
 
 /* Escribe un procedimiento con un parámetro para el nombre de empleado, que nos muestre la edad
 de dicho empleado en años, meses y días */
 
-
+Gestión de Bases de Datos, Versión 1.0
 -- 4. Escribe un procedimiento con un parámetro para el nombre de empleado,
 -- que nos muestre la edad de dicho empleado en años, meses y días.
 
-/* CREATE OR REPLACE
+CREATE OR REPLACE
 PROCEDURE Edad_Empleado (nombre EMPLEADOS.NOMEM%TYPE) AS
 -- Utilizamos un cursor explícito por si existiese más de un empleado
 -- con el mismo nombre.
@@ -73,5 +73,4 @@ BEGIN
     || TRUNC(a) || ' ' || TRUNC(m) || ' ' || TRUNC(d) );
   END LOOP;
 END Edad_Empleado;
-/ */
-
+/

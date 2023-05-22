@@ -47,7 +47,7 @@ exec serie(0,100,8);
 -- máximo indicado. La forma de la función será la siguiente:
 
 CREATE OR REPLACE 
-FUNCTION AZAR(minimo NUMBER, maximo NUMBER) RETURN NUMBER IS
+FUNCTION AZAR(minimo NUMBER, maximo NUMBER) RETURN HOTEL%ROWTYPE IS
   rango NUMBER := maximo - minimo;
 begin
   rango := rango;

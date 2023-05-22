@@ -125,10 +125,10 @@ order by 1; */
 la empresa.
  */
 
- /* select nomde, avg(salar) as "Salario medio"
+ select nomde, avg(salar) as "Salario medio"
  from departamentos D join empleados E on E.numde = D.numde
  group by nomde
- having avg(E.salar) > (SELECT avg(salar) from empleados); */
+ having avg(E.salar) > (SELECT avg(salar) from empleados);
 
 /* 4. Para los departamentos cuyo director lo sea en funciones, hallar el número de empleados y la suma de sus
 salarios, comisiones y número de hijos. */
